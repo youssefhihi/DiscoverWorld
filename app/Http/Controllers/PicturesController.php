@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Pictures;
 use Illuminate\Http\Request;
+use App\Models\Adventure;
 
 class PicturesController extends Controller
 {
@@ -34,9 +35,17 @@ class PicturesController extends Controller
      */
     public function store(Request $request)
     {
-        $pictures = new Pictures();
-        $pictures->picture = $request->picture;
-        $pictures->save();
+        $picture = new Pictures();
+
+        if ($request->hasFile('pictures')) {
+            $file = $request->file('pictures')[0]; 
+            $binaryData = file_get_contents($file->getRealPath());
+            $picture->picture = $binaryData;
+        }
+
+        $picture->save();
+
+    
     }
 
     /**

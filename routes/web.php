@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdventureController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\Pages;
 
 use Illuminate\Support\Facades\Route;
 
@@ -16,13 +17,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/h', function () {
-    return view('home');
-});
-
-Route::get('/', [CountryController::class, 'index']);
-
+Route::get('/h', [Pages::class,"index"]);
 Route::get('/adventure',[AdventureController::class,'create'])->name('Adventure');
+Route::get('/adventure',[CountryController::class,'create']);
 Route::post('/adventure',[AdventureController::class,'store'])->name('addAdventure');
 
 

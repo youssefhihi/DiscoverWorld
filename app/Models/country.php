@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class country extends Model
+class Country extends Model
 {
     use HasFactory;
-    use HasFactory;
+   
+    protected $table = "country";
+
     protected $fillable = [
         'country',
     ];
@@ -17,6 +19,10 @@ class country extends Model
     {
         return $this->hasMany(Adventure::class);
        
+    }
+    public function pictures()
+    {
+        return $this->hasOne(Pictures::class,'id');
     }
 
 }

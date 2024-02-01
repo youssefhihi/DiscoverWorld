@@ -25,20 +25,13 @@
                 </div>
 
                 <div class="mb-4">
-                    <select name="country" id="" class="block text-gray-700 font-bold mb-2 w-full p-2 border-b-2 border-black focus:outline-none focus:border-blue-500">
+                    <select name="countryID" id="" class="block text-gray-700 font-bold mb-2 w-full p-2 border-b-2 border-black focus:outline-none focus:border-blue-500">
                         <option disabled selected> which country you go</option>
-                        {{-- @foreach ($countries as $country)
-                        <option value="">{{ $country->country}}</option>
-                        @endforeach --}}
+                        @foreach ($countries as $country)
+                            <option  value="{{$country->id}}">{{ $country->country}}</option>
+                        @endforeach
                     </select>
-                </div>
-
-                <!-- Image Upload -->
-                <div class="mb-4">
-                    <label for="image" class="block text-gray-700 font-bold mb-2">Image</label>
-                    <input type="file" id="image" name="image[]" multiple class="w-full p-2 border-b-2 border-black focus:outline-none focus:border-blue-500">
-                </div>
-                
+                </div>  
                 <!-- Submit Button -->
                 <div class="flex items-center justify-between">
                     <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Add Adventure</button>

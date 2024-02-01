@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('country', function (Blueprint $table) {
             $table->id();
             $table->string('country');
             $table->unsignedBigInteger('pictureID');
-             $table->foreign('pictureID')->references('id')->on('pictures')->onDelete('cascade');
+            $table->foreign('pictureID')->references('id')->on('pictures')->onDelete('cascade');
             $table->timestamps();
         });
     }

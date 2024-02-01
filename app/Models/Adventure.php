@@ -16,10 +16,10 @@ class Adventure extends Model
 
     public function country()
     {
-        return $this->belongsTo(country::class);
+        return $this->belongsTo(Country::class,'countryID');
     }
     public function pictures()
     {
-        return $this->hasMany(Pictures::class);
+        return $this->hasMany(Pictures::class,'id');
     }
 }

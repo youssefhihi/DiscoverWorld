@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Adventure;
+use App\Models\Pictures;
+use App\Models\Country;
 use Illuminate\Http\Request;
 
 class AdventureController extends Controller
@@ -14,8 +16,8 @@ class AdventureController extends Controller
      */
     public function index()
     {
-        $countries = Adventure::all();
-        return view('addAdventure', compact('adventures'));
+        $adventures = Adventure::all();
+        return view('home', ['adventures'=> $adventures]);
     }
 
     /**
@@ -36,11 +38,13 @@ class AdventureController extends Controller
      */
     public function store(Request $request)
     {
-        $adventure = new Adventure();
-        $adventure->title = $request->title;
-        $adventure->description = $request->description;
-        $adventure->advice = $request->advice;
-        $adventure->save();
+    $adventure = new Adventure();
+    $adventure->title = $request->title;
+    $adventure->description = $request->description;
+    $adventure->advice = $request->advice;   
+    $adventure->countryID = $request->countryID;
+    $adventure->save();
+
     }
 
     /**

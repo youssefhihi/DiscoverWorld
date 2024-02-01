@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\country;
+use App\Models\Country;
 use Illuminate\Http\Request;
 
 class CountryController extends Controller
@@ -14,8 +14,10 @@ class CountryController extends Controller
      */
     public function index()
     {
-    //     $countries = country::all();
-    // return view('addAdventure', compact('countries'));
+        $countries = country::all();
+      
+        return view('home',['countries'=> $countries]);
+       
     }
 
     /**
@@ -26,7 +28,8 @@ class CountryController extends Controller
     public function create()
     {
         //
-        return view('addAdventure');
+        $countries = country::all();
+        return view('addAdventure',['countries'=> $countries]);
     }
 
     /**
