@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Cache;
 
 use App\Models\Country;
 use Illuminate\Http\Request;
@@ -12,13 +13,17 @@ class CountryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
+
     public function index()
     {
-        $countries = country::all();
-      
-        return view('home',['countries'=> $countries]);
-       
+        $countries = Cache::remember('countries.all', 60, function () {
+            return country::all();
+        });
+    
+        return view('home', ['countries' => $countries]);
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -27,9 +32,11 @@ class CountryController extends Controller
      */
     public function create()
     {
-        //
-        $countries = country::all();
-        return view('addAdventure',['countries'=> $countries]);
+        $countries = Cache::remember('countries.all',60, function () {
+            return Country::all();
+        });
+    
+        return view('addAdventure', ['countries' => $countries]);
     }
 
     /**

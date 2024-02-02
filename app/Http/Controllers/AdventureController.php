@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Cache;
 use App\Models\Adventure;
 use App\Models\Pictures;
 use App\Models\Country;
@@ -16,11 +16,15 @@ class AdventureController extends Controller
      */
     public function index()
     {
-        
-        $adventures = Adventure::all();
-        return view('home', ['adventures'=> $adventures]);
-    }
+        $key = 'adventures.all';
 
+        $adventures = Cache::remember($key, 60, function () {
+
+            return Adventure::all();
+        });
+    
+        return view('home', ['adventures' => $adventures]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -54,13 +58,14 @@ class AdventureController extends Controller
     
 
     // Handle picture upload
-if ($request->hasFile('pictures')) {
+    if ($request->hasFile('pictures')) {
     $pictures = [];
 
     foreach ($request->file('pictures') as $picture) {
         // Use the original filename as the second parameter to storeAs
-        $path = $picture->storeAs('pictures', $picture->getClientOriginalName(), 'public');
-    
+        $filename = time() . '_' . $picture->getClientOriginalName();
+        $path = $picture->storeAs('pictures', $filename);
+
         // $path now contains the relative path including the original filename
         $pictures[] = ['picture' => $path];
     }
@@ -70,7 +75,7 @@ if ($request->hasFile('pictures')) {
 }
 
 
-    //return redirect()->route('home')->with('success', 'Adventure added successfully!');
+   // return redirect()->route('filterAdventures')->with('success', 'Adventure added successfully!');
 }
 
 
