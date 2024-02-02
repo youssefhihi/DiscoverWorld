@@ -64,7 +64,7 @@ class AdventureController extends Controller
     foreach ($request->file('pictures') as $picture) {
         // Use the original filename as the second parameter to storeAs
         $filename = time() . '_' . $picture->getClientOriginalName();
-        $path = $picture->storeAs('pictures', $filename);
+        $path = $picture->storeAs('pictures', $filename,'public');
 
         // $path now contains the relative path including the original filename
         $pictures[] = ['picture' => $path];
@@ -75,7 +75,7 @@ class AdventureController extends Controller
 }
 
 
-   // return redirect()->route('filterAdventures')->with('success', 'Adventure added successfully!');
+    return redirect()->route('filterAdventures')->with('success', 'Adventure added successfully!');
 }
 
 

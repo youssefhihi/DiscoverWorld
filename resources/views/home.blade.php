@@ -81,9 +81,9 @@
             <div class="flex flex-col md:flex-row md:space-x-6">
                
                     
-                        <div class="   md:max-w-sm rounded-lg max-w-4xl flex flex-col">
+                        <div class="  md:max-w-sm rounded-lg max-w-4xl flex flex-wrap">
                             @foreach ($adventure->pictures as $picture)
-                                <img src="{{ url('storage/'.$picture->picture) }}" alt="Adventure Picture" class=" w-96  h-auto mb-2">
+                                <img src="{{ url('/storage/'. $picture->picture) }}" alt="Adventure Picture" class=" w-36  h-auto mb-2">
                             @endforeach
                         </div>
                     
