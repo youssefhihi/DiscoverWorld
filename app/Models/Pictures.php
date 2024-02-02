@@ -11,9 +11,9 @@ class Pictures extends Model
     protected $fillable = [
         'picture',
     ];
-    
+
     public function adventure()
     {
-        return $this->belongsTo(Adventure::class);
+        return $this->belongsTo(Adventure::class,'adventureID');
     }
 }

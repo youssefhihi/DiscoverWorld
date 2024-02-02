@@ -17,12 +17,11 @@ class Country extends Model
 
     public function adventures()
     {
-        return $this->hasMany(Adventure::class);
+        return $this->hasMany(Adventure::class,'countryID');
        
     }
     public function pictures()
     {
-        return $this->hasOne(Pictures::class,'id');
+        return $this->belongsTo(Pictures::class, 'pictureID');
     }
-
 }

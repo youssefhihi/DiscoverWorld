@@ -16,6 +16,7 @@ class AdventureController extends Controller
      */
     public function index()
     {
+        
         $adventures = Adventure::all();
         return view('home', ['adventures'=> $adventures]);
     }
@@ -37,15 +38,59 @@ class AdventureController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+{
+    
+
+    // Create the adventure
     $adventure = new Adventure();
     $adventure->title = $request->title;
     $adventure->description = $request->description;
-    $adventure->advice = $request->advice;   
+    $adventure->advice = $request->advice;
     $adventure->countryID = $request->countryID;
+    
     $adventure->save();
 
+    // Handle picture upload
+    
+
+    // Handle picture upload
+if ($request->hasFile('pictures')) {
+    $pictures = [];
+
+    foreach ($request->file('pictures') as $picture) {
+        // Use the original filename as the second parameter to storeAs
+        $path = $picture->storeAs('pictures', $picture->getClientOriginalName(), 'public');
+    
+        // $path now contains the relative path including the original filename
+        $pictures[] = ['picture' => $path];
     }
+
+    // Use createMany to insert multiple records
+    $adventure->pictures()->createMany($pictures);
+}
+
+
+    //return redirect()->route('home')->with('success', 'Adventure added successfully!');
+}
+
+
+
+
+    public function filterPosts(Request $request)
+    {
+        $sortOption = $request->input('sort');
+
+        if ($sortOption === 'oldest') {
+            $posts = Adventure::orderBy('created_at')->get();
+        } elseif ($sortOption === 'newest') {
+            $posts = Adventure::orderByDesc('created_at')->get();
+        } else {          
+            $posts = Adventure::all();
+        }
+
+        return view('home', ['adventures' => $posts]);
+    }
+   
 
     /**
      * Display the specified resource.
@@ -55,7 +100,7 @@ class AdventureController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**

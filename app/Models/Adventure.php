@@ -20,6 +20,6 @@ class Adventure extends Model
     }
     public function pictures()
     {
-        return $this->hasMany(Pictures::class,'id');
+        return $this->hasMany(Pictures::class,'adventureID');
     }
 }

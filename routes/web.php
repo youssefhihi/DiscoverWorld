@@ -1,4 +1,7 @@
 <?php
+// routes/web.php
+use App\Http\Controllers\ExploreController;
+use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\AdventureController;
 use App\Http\Controllers\CountryController;
@@ -17,10 +20,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/h', [Pages::class,"index"]);
+Route::get('/explore', [ExploreController::class, 'index'])->name('explore');
+
+Route::get('/', [HomeController::class,"filterPosts"])->name('filterAdventures');
 Route::get('/adventure',[AdventureController::class,'create'])->name('Adventure');
 Route::get('/adventure',[CountryController::class,'create']);
 Route::post('/adventure',[AdventureController::class,'store'])->name('addAdventure');
-
 
 
