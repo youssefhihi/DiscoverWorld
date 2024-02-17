@@ -45,7 +45,7 @@ class AdventureController extends Controller
 {
     
 
-    // Create the adventure
+   
     $adventure = new Adventure();
     $adventure->title = $request->title;
     $adventure->description = $request->description;
@@ -54,23 +54,23 @@ class AdventureController extends Controller
     
     $adventure->save();
 
-    // Handle picture upload
+   
     
 
-    // Handle picture upload
+    
     if ($request->hasFile('pictures')) {
     $pictures = [];
 
     foreach ($request->file('pictures') as $picture) {
-        // Use the original filename as the second parameter to storeAs
+       
         $filename = time() . '_' . $picture->getClientOriginalName();
         $path = $picture->storeAs('pictures', $filename,'public');
 
-        // $path now contains the relative path including the original filename
+       
         $pictures[] = ['picture' => $path];
     }
 
-    // Use createMany to insert multiple records
+    
     $adventure->pictures()->createMany($pictures);
 }
 

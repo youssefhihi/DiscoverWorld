@@ -16,6 +16,7 @@
 
        {{-- Filter adventure --}}
 <form action="{{ route('filterAdventures') }}" method="get" class="mt-4">
+    
     <div class="flex flex-col justify-between max-w-3xl mx-auto  md:flex-row items-center  space-y-4 md:space-y-0 md:space-x-4">
         <!-- Sort By -->
         <div class="flex items-center">
